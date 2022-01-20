@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+const environment = process.env.NODE_ENV || 'development';
+let mailConfig;
+
+switch ( environment ) {
+    case 'development' :
+        mailConfig = {
+            // transportMethod: '',
+            service: 'gmail',
+            host: 'smtp.googlemail.com', // Gmail Host
+            port: 465, // Port
+            secure: true, // this is true as port is 465
+            pool: false,
+            logger: true,
+            debug: true,
+            auth: {
+                user: '',
+                pass: ''
+            }
+        };
+    break;
+    case 'homologation' :
+        mailConfig = {
+            // transportMethod: '',
+            service: 'gmail',
+            host: 'smtp.googlemail.com', // Gmail Host
+            port: 465, // Port
+            secure: true, // this is true as port is 465
+            pool: false,
+            logger: true,
+            debug: true,
+            auth: {
+                user: '',
+                pass: ''
+            }
+        };
+    break;
+    case 'production' :
+        mailConfig = {
+            // transportMethod: '',
+            service: 'gmail',
+            host: 'smtp.googlemail.com', // Gmail Host
+            port: 465, // Port
+            secure: true, // this is true as port is 465
+            pool: false,
+            logger: true,
+            debug: true,
+            auth: {
+                user: '',
+                pass: ''
+            }
+        };
+    break;
+}
+
+module.exports = mailConfig;

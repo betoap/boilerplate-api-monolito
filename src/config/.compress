@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+const environment = process.env.NODE_ENV || 'development';
+
+let compressConfig = {};
+
+switch ( environment ) {
+    case 'development' :
+      compressConfig = {
+          filter: function (content_type) {
+              return /text/i.test(content_type);
+          },
+          threshold: 2048,
+          flush: require('zlib').Z_SYNC_FLUSH
+      };
+    break;
+    case 'homologation' :
+      compressConfig = {
+          filter: function (content_type) {
+              return /text/i.test(content_type);
+          },
+          threshold: 2048,
+          flush: require('zlib').Z_SYNC_FLUSH
+      };
+    break;
+    case 'production' :
+      compressConfig = {
+          filter: function (content_type) {
+              return /text/i.test(content_type);
+          },
+          threshold: 2048,
+          flush: require('zlib').Z_SYNC_FLUSH
+      };
+    break;
+}
+
+module.exports = compressConfig;

@@ -1,0 +1,12 @@
+[webmaster]
+172.20.183.37 ansible_user=Beto
+[apimaster]
+172.20.183.38 ansible_user=Beto
+[webqa]
+172.20.183.39 ansible_user=Beto
+[apiqa]
+172.20.183.40 ansible_user=Beto
+[webprdlke]
+172.20.183.36 ansible_user=Beto
+[apiprdlke]
+172.20.183.42 ansible_user=Beto

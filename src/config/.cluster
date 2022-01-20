@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+const environment = process.env.NODE_ENV || 'development';
+
+let clusterConfig = {};
+
+switch ( environment ) {
+    case 'development' :
+        clusterConfig = {
+            amount: 1
+        };
+    break;
+    case 'homologation' :
+        clusterConfig = {
+            amount: 10
+        };
+    break;
+    case 'production' :
+        clusterConfig = {
+            amount: 'MAX'
+        };
+    break;
+}
+module.exports = clusterConfig;

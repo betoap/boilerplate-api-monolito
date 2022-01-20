@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+const environment = process.env.NODE_ENV || 'development';
+
+let socketConfig = {};
+
+switch ( environment ) {
+  case 'development' :
+    socketConfig = {
+      maxConnection: 10,
+      maxConnectionPerRoom: 5,
+      roomDefault: 'hall'
+    };
+  break;
+  case 'homologation' :
+    socketConfig = {
+      maxConnection: 20,
+      maxPerRoom: 4,
+      roomDefault: 'hall'
+    };
+  break;
+  case 'production' :
+    socketConfig = {
+      maxConnection: 200,
+      maxPerRoom: 4,
+      roomDefault: 'hall'
+    };
+  break;
+}
+
+module.exports = socketConfig;

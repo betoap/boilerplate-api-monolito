@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+const environment = process.env.NODE_ENV || 'development';
+
+let pagseguroConfig = {};
+
+switch ( environment ) {
+  case 'development' :
+    pagseguroConfig = {
+        credentials: {
+            email: '',
+            token: '',
+        },
+        currency: 'BRL',
+        reference: 'Compra online Arte com carinho',
+        redirectURL: 'http://localhost:3000/ecommerce/retornoPagseguro',
+        notificationURL: 'http://localhost:3000/ecommerce/notificacaoPagseguro',
+        revisaoURL: 'http://localhost:3000/ecommerce/revisaoPagseguro',
+        mode : 'sandbox',
+        debug: true,
+    };
+  break;
+  case 'homologation' :
+    pagseguroConfig = {
+        credentials: {
+            email: '',
+            token: '',
+        },
+        currency: 'BRL',
+        reference: 'Compra online Arte com carinho',
+        redirectURL: 'http://localhost:3000/ecommerce/retornoPagseguro',
+        notificationURL: 'http://localhost:3000/ecommerce/notificacaoPagseguro',
+        revisaoURL: 'http://localhost:3000/ecommerce/revisaoPagseguro',
+        mode : 'sandbox',
+        debug: true,
+    };
+  break;
+  case 'production' :
+    pagseguroConfig = {
+        credentials: {
+            email: '',
+            token: '',
+        },
+        currency: 'BRL',
+        reference: 'Compra online Arte com carinho',
+        redirectURL: 'http://localhost:3000/ecommerce/retornoPagseguro',
+        notificationURL: 'http://localhost:3000/ecommerce/notificacaoPagseguro',
+        revisaoURL: 'http://localhost:3000/ecommerce/revisaoPagseguro',
+        mode : 'sandbox',
+        debug: true,
+    };
+  break;
+}
+
+module.exports = pagseguroConfig;
+
+
+

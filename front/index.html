@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Koa-Socket Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <style>
+    * { margin: 0; padding: 0; border:0; box-sizing: border-box; }
+
+    .row{
+      margin-right: 0px !important;
+      margin-left: 0px !important;
+    }
+    body { font: 13px Helvetica, Arial; }
+    .hidden{
+      display: none !important;
+    }
+    .show{
+      display: block !important;
+    }
+    #login{
+      margin: 20% 25%;
+    }
+    #chat #msgs{ height: 80vh; }
+    #chat { list-style-type: none; margin: 0; padding: 0; }
+    #chat ul { list-style-type: none; }
+    #chat ul li.active, #chat ul li.active:nth-child(odd){ background-color: royalblue; color: seashell;}
+    #chat ul li { background: snow; list-style-type: none; padding:10px; margin-bottom: 5px; }
+    #chat ul li:nth-child(odd) { background: #eee; }
+    #chat form { background: #000; padding: 3px; height: 8vh;}
+    #chat form textarea { border: 0; padding: 10px; width: 90%; margin-right: .5%; float:left; }
+    #chat form button { width: 8%; background: rgb(130, 224, 255); border: none; padding: 10px; float:left; margin-left: 10px; }
+  </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+  <form id="login" class="hidden">
+    <div class="form-group">
+      <input type="text" class="form-control" id="name" placeholder="Digite seu nome">
+    </div>
+    <div class="form-group">
+      <button id="js-btn-login" class="btn btn-primary ">Entrar</button>
+    </div>
+  </form>
+
+  <div id="chat" class="container hidden">
+      <div class="row">
+        <div class="col-9">
+          <div id="msgs">
+            Lista de mensagens <br />
+          </div>
+          <form>
+            <textarea class="form-control" id="msg" rows="1"></textarea>
+            <button id="js-btn-mgs">Enviar</button>
+          </form>
+        </div>
+        <div class="col-2">
+          <ul id="users">
+
+          </ul>
+        </div>
+      </div>
+  </div>
+  <script>
+    /** Elementos **/
+    const login = document.querySelector('#login');
+    const name = document.querySelector('#name');
+    const btnLogin = document.querySelector('#js-btn-login');
+
+    const chat = document.querySelector('#chat');
+    const msgs = document.querySelector('#msgs');
+    const listUsers = document.querySelector('#users');
+    const msg = document.querySelector('#msg');
+    const btnMsg = document.querySelector('#js-btn-mgs');
+    let msgTo;
+
+    function removeClass() {
+      login.classList.remove('show');
+      chat.classList.remove('show');
+      login.classList = 'hidden';
+      chat.classList = 'hidden';
+    }
+    // http://35.172.135.126:3000/
+    /** SOCKET **/
+    var socket = io.connect('ws://35.172.135.126:3000', {transports: ['websocket']});
+    // var socket = io.connect('ws://192.168.1.104:3000', {transports: ['websocket']});
+    socket.on('connect', (data) => { console.log( 'connect', data ) });
+    socket.on('error', (data) => { console.log( 'error', data ) });
+    socket.on('disconnect', (data) => { console.log( 'disconnect', data ) });
+
+    socket.on('login:reject', ( ctx ) => {
+      removeClass();
+      alert(ctx.message);
+    });
+    socket.on('login:loggout', ( ctx ) => {
+      console.log(ctx.message);
+    });
+    socket.on('disconnect', () => {
+      removeClass();
+    });
+
+    socket.on('login:preconnection', () => {
+      login.className = 'show';
+    });
+
+
+    btnLogin.addEventListener( 'click', (e)=> {
+      e.preventDefault();
+      if( name.value.length > 2 ){
+        socket.emit('login:user', { name: name.value, id: Math.floor( Math.random() * 999999 ), roomName: 'lobby' });
+        return;
+      }
+      alert('Digite um nome imbecil.')
+    });
+
+    socket.on('user:connected', ( user ) => {
+      removeClass();
+      chat.className = 'show';
+      console.log( '--->', user )
+      setTimeout( () => {
+        socket.emit( 'character:move', { user, position: { x: 100, y: 200 } });
+      }, 444 );
+    });
+
+    socket.on( 'character:move', ( data ) => {
+      console.log( data )
+    });
+
+    socket.on( 'list:users', ( users ) => {
+      while(listUsers.firstChild) listUsers.removeChild(listUsers.firstChild);
+      users.forEach( data  => {
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode(data.name));
+        li.setAttribute('id', data.sid);
+        listUsers.appendChild(li);
+      });
+    })
+
+    
+    btnMsg.addEventListener( 'click', ( event ) => {
+      event.preventDefault();
+      const data = { msg: msg.value, userName: name.value };
+      if( msgTo ) data.to = msgTo;
+      socket.emit( 'msg:all', data );
+      // showMessage( data );
+      msg.value = '';
+    });
+
+    socket.on( 'msg:new', ( data ) => {
+      showMessage( data )
+    });
+
+    function showMessage( data ){
+      msgs.innerHTML += `<b>${data.userName} diz:</b>  ${data.msg} <br />`;
+    }
+
+    document.getElementById("users").addEventListener("click",function(e) {
+        if(e.target && e.target.nodeName === 'LI') {
+          clearList();
+          const li = document.querySelector( `#${e.target.id}` )
+          if( msgTo === e.target.id ) {
+            msgTo = undefined;
+            return;
+          }
+          li.classList = 'active';
+          msgTo = e.target.id;
+        }
+    });
+
+
+    function clearList() {
+      for (const li of document.querySelectorAll("#users li")) {
+        li.classList.remove("active");
+      }
+    }
+    
+    // $("ol").append("<li>Appended item</li>");
+
+    // socket.on('msg:all', ( msg ) => {
+    //   msgs.innerHTML += msg.msg + '<br />';
+    // });
+    // socket.on('msg:me', ( msg ) => {
+    //   msgs.innerHTML += msg.msg + '<br />';
+    // });
+
+    // pm2 starup
+    // pm2 unstarup
+    // pm2 start npm -- start-dev
+    // pm2 start npm --name start:dev -- start
+
+  </script>
+</body>
+</html>

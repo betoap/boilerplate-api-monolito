@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+const mongodb = {
+  dialect: 'mongodb',
+  user: process.env.DATABASE_NOSQL_USER,
+  password: process.env.DATABASE_NOSQL_PASSWORD,
+  host: process.env.DATABASE_NOSQL_HOST,
+  port: process.env.DATABASE_NOSQL_PORT,
+  database: process.env.DATABASE_NOSQL_NAME,
+  ssl: process.env.DATABASE_NOSQL_SSL
+};
+
+module.exports = mongodb;

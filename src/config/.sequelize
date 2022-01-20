@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+module.exports = {
+    username: process.env.DATABASE_SQL_USER,
+    password: process.env.DATABASE_SQL_PASSWORD,
+    database: process.env.DATABASE_SQL_NAME,
+    host:     process.env.DATABASE_SQL_HOST,
+    dialect:  process.env.DATABASE_SQL_DIALECT,
+    logging:  process.env.DATABASE_SQL_LOGGING === 'true' ? console.log : nul,
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+    storage:  ':memory:',
+    query: {
+        // 'raw': true
+    },
+    define: {
+      underscored: true,
+      freezeTableName: true,
+      timestamps: false
+    },
+    dialectOptions: {
+        useUTC: false,
+        dateStrings: true,
+        typeCast: true,
+        timezone: 'America/Sao_Paulo',
+    },
+    timezone: 'America/Sao_Paulo'
+};

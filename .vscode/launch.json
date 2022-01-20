@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Nodemon DEV",
+        "args": [],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "cwd": "${workspaceRoot}",
+        "trace": true,
+        "restart": true,
+        "protocol": "inspector",
+        "stopOnEntry": false,
+        "runtimeExecutable": "nodemon",
+        "preLaunchTask": "npm: copy",
+        "program": "${workspaceRoot}/dist/bin/clusters",
+        "runtimeArgs": [
+            "--nolazy"
+          ],
+        "sourceMaps": true,
+        "env": {
+          "REDIS_TOKEN_HOST": "",
+          "REDIS_TOKEN_PORT": "6379",
+          "REDIS_TOKEN_DB": "1",
+          "API_KEY" : "5bd16316-df58-4121-a155-8eea6537351c",
+          "DATABASE_SQL_USING" : "true",
+          "DATABASE_SQL_HOST" : "127.0.0.1",
+          "DATABASE_SQL_NAME" : "artecomcarinho",
+          "DATABASE_SQL_USER" : "root",
+          "DATABASE_SQL_PASSWORD" : "admin",
+          "DATABASE_SQL_LOGGING" : "true",
+          "DATABASE_SQL_DIALECT": "mariadb",
+          "DATABASE_NOSQL_USING" : "false",
+          "DATABASE_NOSQL_HOST" : "127.0.0.1",
+          "DATABASE_NOSQL_PORT" : "27017",
+          "DATABASE_NOSQL_NAME" : "ecommerce",
+          "DATABASE_NOSQL_USER" : "",
+          "DATABASE_NOSQL_PASSWORD" : "",
+          "DATABASE_NOSQL_DIALECT": "mongodb",
+          "DATABASE_NOSQL_SSL": "false",
+          "DEBUGGER_PORT": "2000",
+          "HTTP_PORT": "2000",
+          "HTTPS_PORT":"2001",
+          "HTTP2_PORT":"2002",
+          "HTTPS_KEY":"server.key",
+          "HTTPS_CERTIFICATION":"server.crt",
+          "HTTP2_KEY":"localhost-privkey.pem",
+          "HTTP2_CERTIFICATION":"localhost-cert.pem",
+          "LOG_NAMESPACES" : "*,-http,-db",
+          "API_HOST" : "http://localhost",
+          "APPLICATION_NAME" : "ecommerce",
+          "BASE_PATH" : "{$workspaceFolder}/dist",
+          "JWT_SECRET" : "{}",
+          "ENVIRONMENT_ID" : "dev",
+          "NODE_ENV" : "development",
+          "MODE_DEBUG": "true",
+          "AWS_ACCESS_KEY_ID" : "",
+          "AWS_SECRET_ACCESS_KEY" : "",
+          "AWS_DEFAULT_REGION" : "",
+          "AWS_REGION" : ""
+        }
+      }
+    ]
+  }

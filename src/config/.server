@@ -1,0 +1,77 @@
+#!/usr/bin/env node
+const fs = require( 'fs' );
+const path = require( 'path' );
+const environment = process.env.NODE_ENV || 'development';
+
+let serverConfig = {};
+
+switch ( environment ) {
+    case 'development' :
+        serverConfig = {
+            domain: 'localhost',
+            http: {
+                port: process.env.HTTP_PORT,
+            },
+            https: {
+                port: process.env.HTTPS_PORT,
+                options: {
+                    key: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTPS_KEY), 'utf8' ).toString(),
+                    cert: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTPS_CERTIFICATION), 'utf8' ).toString(),
+                },
+            },
+            http2: {
+                port: process.env.HTTP2_PORT,
+                options: {
+                    key: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTP2_KEY), 'utf8' ).toString(),
+                    cert: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTP2_CERTIFICATION), 'utf8' ).toString(),
+                },
+            },
+        };
+    break;
+    case 'homologation' :
+      serverConfig = {
+          domain: 'localhost',
+          http: {
+              port: process.env.HTTP_PORT,
+          },
+          https: {
+              port: process.env.HTTPS_PORT,
+              options: {
+                  key: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTPS_KEY), 'utf8' ).toString(),
+                  cert: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTPS_CERTIFICATION), 'utf8' ).toString(),
+              },
+          },
+          http2: {
+              port: process.env.HTTP2_PORT,
+              options: {
+                  key: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTP2_KEY), 'utf8' ).toString(),
+                  cert: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTP2_CERTIFICATION), 'utf8' ).toString(),
+              },
+          },
+      };
+    break;
+    case 'production' :
+      serverConfig = {
+          domain: 'localhost',
+          http: {
+              port: process.env.HTTP_PORT,
+          },
+          https: {
+              port: process.env.HTTPS_PORT,
+              options: {
+                  key: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTPS_KEY), 'utf8' ).toString(),
+                  cert: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTPS_CERTIFICATION), 'utf8' ).toString(),
+              },
+          },
+          http2: {
+              port: process.env.HTTP2_PORT,
+              options: {
+                  key: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTP2_KEY), 'utf8' ).toString(),
+                  cert: fs.readFileSync( path.resolve(`${process.cwd()}/cert/`, process.env.HTTP2_CERTIFICATION), 'utf8' ).toString(),
+              },
+          },
+      };
+    break;
+}
+
+module.exports = serverConfig;

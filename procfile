@@ -1,0 +1,16 @@
+export NODE_ENV=development
+export HTTP_PORT=3000
+export HTTPS_PORT=3001
+export HTTP2_PORT=3002
+export HTTPS_KEY=server.key
+export HTTPS_CERTIFICATION=server.crt
+export HTTP2_KEY=localhost-privkey.pem
+export HTTP2_CERTIFICATION=localhost-cert.pem
+export DATABASE_SQL_HOST=localhost
+export DATABASE_SQL_NAME=game-rpg
+export DATABASE_SQL_USER=root
+export DATABASE_SQL_PASSWORD=betoap
+export DATABASE_SQL_LOGGING=true
+export DATABASE_SQL_DIALECT=mariadb
+tsc --p tsconfig.json
+worker: node ./dist/bin/clusters.js

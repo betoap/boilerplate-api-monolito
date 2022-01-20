@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+const environment = process.env.NODE_ENV || 'development';
+
+let corsConfig = {};
+
+switch ( environment ) {
+    case 'development' :
+      corsConfig = {
+          origin: function(ctx) {
+            if (ctx.url === '/test') {
+              return false;
+            }
+            return '*';
+          },
+          maxAge: 5,
+          credentials: true,
+          exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+          allowMethods: ['HEAD', 'OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+          allowHeaders: ['Authorization', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-access-token'],
+      };
+    break;
+    case 'homologation' :
+      corsConfig = {
+          origin: function(ctx) {
+            if (ctx.url === '/test') {
+              return false;
+            }
+            return '*';
+          },
+          maxAge: 5,
+          credentials: true,
+          exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+          allowMethods: ['HEAD', 'OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+          allowHeaders: ['Authorization', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-access-token'],
+      };
+    break;
+    case 'production' :
+      corsConfig = {
+          origin: function(ctx) {
+            if (ctx.url === '/test') {
+              return false;
+            }
+            return '*';
+          },
+          maxAge: 5,
+          credentials: true,
+          exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+          allowMethods: ['HEAD', 'OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+          allowHeaders: ['Authorization', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-access-token'],
+      };
+    break;
+}
+
+module.exports = corsConfig;

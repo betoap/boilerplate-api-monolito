@@ -1,0 +1,257 @@
+// node create -s="user" -f="name:String:nn,email:String:nn,password:String:nn,sex:String:nn,age:Date:nn,is_active:Boolean"
+// node create -s="blog/post" -f="user:user:nn,title:String:nn,call:String:nn,integrate:Text:nn"
+// node create -s="blog/comment" -f="user:user:nn,post:post:nn,content:Text:nn"
+
+// node create -s="ecommerce/tag" -f="name:String:nn,description:Text"
+// node create -s="ecommerce/review" -f="product:product:nn,text:Text,note:Text:nn"
+// node create -s="ecommerce/category" -f="name:String:nn,description:Text"
+// node create -s="ecommerce/gallery" -f="name:String:nn,description:Text"
+// node create -s="ecommerce/product_tag" -f="product:product:nn,tag:tag:nn"
+// node create -s="ecommerce/photo" -f="gallery:gallery,photo:String:nn,cover_is:Boolean"
+// node create -s="ecommerce/product_category" -f="product:product:nn,category:category:nn"
+// node create -s="ecommerce/product_review" -f="product:product:nn,review:review:nn"
+// node create -s="ecommerce/product" -f="gelery:gallery,title:String:nn,call:String:nn,description:Text:nn,price:float:nn"
+// node create -s="ecommerce/productRelationship" -f="product:product:nn,relationship:product:nn"
+
+
+node create -s="ecommerce/promotion" -f="name:String:nn,percentage:int"
+node create -s="ecommerce/productPromotion" -f="product:product:nn,promotion:promotion:nn"
+
+
+
+node create -s="recommendation_type" -f="title:string:nn"
+
+node create -s="product" -f="title:string:nn,subtitle:string:nn,type:string:nn,description:string:nn,characteristics:string:nn,image:string:nn,bulletin:string:nn,benefit_title:string:nn,benefit_description:string:nn,benefit_doc:string:nn,recommendation_title:string,recommendation:recommendation,language:language:nn"
+
+node create -s="language" -f="title:string:nn"
+
+
+node create -s="sustainability" -f="title:string:nn,subtitle:string:nn,image:string:nn,language:language:nn"
+
+
+node create -s="recommendation" -f="title:string:nn"
+node create -s="recommendation_item" -f="title:string:nn,description:string:nn,image:string:nn,language:language:nn"
+
+
+
+// HOME
+node create -s="lithothamnion" -f="title:string:nn,description:string:nn,image:string:nn,language:language:nn"
+
+node create -s="performance" -f="title:string:nn,description:string:nn,image:string:nn,benefit_title:string:nn,benefit_description:string:nn,benefit_image:string:nn,characteristic_title:string:nn,characteristic_description:string:nn,language:language:nn"
+
+
+node create -s="company" -f="title:string:nn,description:string:nn,image:string:nn,company_description:string:nn,company_image:string:nn,language:language:nn"
+node create -s="company_more" -f="description:string:nn,image:string:nn,language:language:nn"
+node create -s="mission" -f="title:string:nn,description:string:nn,image:string:nn,language:language:nn"
+
+
+node create -s="contact" -f="title:string:nn,description:string:nn,image:string:nn,image1:string:nn,image2:string:nn,location_title:string:nn,location_description:string:nn,language:language:nn"
+
+
+
+
+node create -s="benefit" -f="description:string:nn,product:product:nn,language:language:nn"
+node create -s="recommendation" -f="title:string:nn,description:string:nn,product:product:nn,image:string:nn,language:language:nn"
+
+
+node create -s="whoweare" -f="title:string:nn,subtitle:string:nn,description:string:nn,performance:string:nn,language:language:nn"
+node create -s="whoweare_image" -f="image:string:nn,whoweare:whoweare:nn"
+
+mutation {
+  createProduct(input:{
+    title: "Primaz"
+    subtitle: "Nutrição Vegetal"
+    type: "Fertilizante Premium"
+    description: "Primaz é o potencializador de safras da PrimaSea. Atua diretamente no balanço iônico da solução do solo. Em sua composição, temos uma fração mineral, composta por mais de 40 elementos com liberação imediata e gradual, com destaque para o cálcio (Ca) e o magnésio (Mg) e uma fração orgânica, composta de 15 aminoácidos essenciais para os organismos vivos."
+    characteristics: "- Disponibiliza fósforo da reserva do solo; <br /> - Aumenta consideravelmente a eficiência de NPK provenientes das adubações; <br /> - Elimina a ação do Al tóxico do solo, mantendo o solo em condições de pH ideal para máxima disponibilidade dos nutrientes; <br /> - Produção de efeito Quelato – nutrientes com alta mobilidade e baixo antagonismo iônico; <br /> - Maior resistência à pragas, fungos e bactérias; <br /> - Transporte ativo de nutrientes pelas membranas celulares; <br /> - Composição química benéfica para firmeza da parede celular; <br /> - Altas quantidades de cálcio e magnésio orgânicos. <br />"
+    image:"no-image.png"
+    bulletin: "doc.pdf"
+    benefit_title: "Benefícios do Lithothamnium"
+    benefit_description: "<p>• Eleva o pH do solo a condições ideais para a máxima disponibilidade dos nutrientes</p><p>• Disponibiliza fósforo da reserva do solo</p><p>• Aumenta consideravelmente a eficiência de NPK provenientes das adubações</p><p>• Elimina a ação do Al tóxico do solo</p><p>• Maior resistência à pragas, fungos e bactérias</p><p>• Transporte ativo de nutrientes pelas membranas celulares</p><p>• Aminoácidos precursores de processos fisiológicos ligados imunidade e resistência das plantas</p><p>• Maior eficiência fotossintética devido ao Mg atuando no transporte ativo de nutrientes</p><p>• Menor estresse das plantas</p>"
+    benefit_doc: "benefit_doc.pdf"
+    recommendation_title: "Recomendações de uso"
+    recommendation_description: "<p><b>Grandes Culturas (10)</b></p><p>Horticultura extensiva (5)</p><p>Horticultura canteriros (11)</p><p>Fruticultura (15)</p><p>Outros (2)</p>"
+    language_id: 1
+  }){
+    id
+  }
+}
+
+mutation {
+  createSustainability(input:{
+    title: "Certificado Orgânico"
+    subtitle: "Cadeia produtiva acreditada"
+    image:"no-image.png"
+    language_id: 1
+  }){
+    id
+  }
+}
+
+mutation {
+  createLithothamnion(input:{
+    title: "O Poder do Lithothamnion"
+    description: "<p><b>Complexo biomineral, 100% orgânico.</b></p><p>O Lithothamnion melhora significativamente a absorção<p>de nutrientes que se acumulam entre as paredes das</p><p>células e catalisa os processos fisiológicos essenciais</p><p>ao desenvolvimento de plantas e animais.</p><p></p><p></p><p></p><p></p><p>A PrimaSea acumula atualmente a maior reserva licenciada</p><p>e em operação de Lithothamnion do planeta</p><p>• Sedimento marinho fossilizado</p><p>• 100% orgânico</p><p>• Contém mais de 70 nutrientes com alta biodisponibilidade e solubilidade</p><p>• Abrange grande variedade de aminoácidos essenciais</p><p>• Estrutura singular de alta porosidade</p><p>• Assimilação rápida e gradual</p>"
+    image:"no-image.png"
+    language_id: 1
+  }){
+    id
+  }
+}
+
+mutation {
+  createBenefit(input:{
+    description: "Lorem Ipsum is simply dummy text"
+    product_id: 1
+    language_id: 1
+  }){
+    id
+  }
+}
+
+
+
+mutation {
+  createRecommendation(input:{
+    title: "Lorem Ipsum"
+    description: "Lorem Ipsum is simply dummy text 4"
+    image: "no-image.png"
+    product_id: 1
+    language_id: 1
+  }){
+    id
+  }
+}
+
+
+
+
+
+
+query{
+  getProducts(where: { language_id_eq: 1 }){
+    response{
+    id
+    title
+    subtitle
+    benefit(where: { language_id_eq: 1 }){
+      response{
+        description
+      }
+    }
+    recommendation(where: { language_id_eq: 1 }){
+      response{
+        description
+      }
+    }
+  }
+  paginate{
+    count
+    nextPage
+    prevPage
+  }
+  }
+}
+
+mutation {
+  createWhoweare(input:{
+    title: "Somos a PrimaSea"
+    subtitle: "Performance e Lucratividade"
+    description: "Somos uma Companhia brasileira de Ciências da Vida especializada no Agronegócio.  Desenvolvemos produtos orgânicos prêmium dedicados à nutrição saudável - animal e vegetal - que proporcionam ganhos de produtividade e qualidade expressivos para toda a indústria."
+    performance: "Trabalhamos lado a lado com nossos clientes e parceiros da indústria, proporcionando o auxílio e consultoria corretos sobre as condições ideais de uso de nossos produtos especiais baseados no Lithothamnion."
+    language_id: 1
+  }){
+    id
+  }
+}
+
+
+
+
+
+
+query{
+  getProducts(where: { language_id_eq: 1 }){
+    response{
+    id
+    title
+    subtitle
+    benefit(where: { language_id_eq: 1 }){
+      response{
+        description
+      }
+    }
+    recommendation(where: { language_id_eq: 1 }){
+      response{
+        title
+        recommendation_item(where: { language_id_eq: 1 }){
+          response{
+            id
+          }
+        }
+      }
+    }
+  }
+  paginate{
+    count
+    nextPage
+    prevPage
+  }
+  }
+}
+
+
+
+query{
+  getWhoweares(where: { language_id_eq: 1 }){
+    response{
+    id
+    title
+    subtitle
+    description
+    performance
+    whoweare_image{
+      response{
+        image
+      }
+    }
+  }
+  paginate{
+    count
+    nextPage
+    prevPage
+  }
+  }
+}
+
+
+
+mutation {
+  createCompany(input:{
+    title: "Ganho de produtividade de forma sustentável e escalável"
+    description: "Ajudamos a fazer mais por menos"
+    company_description: "<p>Segundo pesquisas da FAO (Food & Agriculture Organization), alcançaremos a marca de 10 bilhões de habitantes até 2050, acarretando em um aumento da demanda sem precedentes na produção de alimentos em nosso planeta.</p><p></p><p>Invariavelmente, esse salto populacional acarretará na necessidade de aumento substancial da produtividade de produtores e fazendeiros em todo o planeta.</p><p></p><p></p><p></p><p>Na PrimaSea, nosso maior objetivo é ajudar o Agronegócio no mundo a se redefinir para enfrentar de frente esses desafios impostos à indústria nos próximos anos.</p><p></p><p>Usando os nossos produtos, nosso mercado está aprimorando sua produtividade, qualidade e, principalmente, adicionando mais valor à sua produção.</p>"
+    company_image: "company_image.png"
+    image:"company.png"
+    language_id: 1
+  }){
+    id
+  }
+}
+
+
+mutation {
+  createPerformance(input:{
+    title: "Unimos a melhor matéria-prima com excelência em produção"
+    description: "<p>• Sedimento fossilizado</p><p>• 100% orgânico</p><p>• Contém mais de 70 nutrientes com alta biodisponibilidade e solubilidade</p><p>• Abrange grande variedade de aminoácidos essenciais</p><p>• Estrutura singular de alta porosidade</p><p>• Assimilação rápida e gradual</p>"
+    benefit_title: "Benefícios do Lithothamnium"
+    benefit_description: "<p>•  Eleva o pH do solo a condições ideais para a máxima disponibilidade dos nutrientes</p><p>•  Disponibiliza fósforo da reserva do solo</p><p>•  Aumenta consideravelmente a eficiência de NPK provenientes das adubações</p><p>•  Elimina a ação do Al tóxico do solo</p><p>•  Maior resistência à pragas, fungos e bactérias</p><p>•  Transporte ativo de nutrientes pelas membranas celulares</p><p>•  Aminoácidos precursores de processos fisiológicos ligados imunidade e resistência das plantas</p><p>•  Maior eficiência fotossintética devido ao Mg atuando no transporte ativo de nutrientes</p><p>•  Menor estresse das plantas</p>"
+    benefit_image: "benefit.png"
+    characteristic_title: "Características:"
+    characteristic_description: "<p>•  Alta concentração de Cálcio e Magnésio orgânicos em sua composição</p><p>•  Alta reatividade no solo, 8 vezes mais reativo  do que os carbonatos de cálcio usuais</p><p>•  Alta reação com a CTC do solo</p><p>•  Alta competição com o Alumínio presente no solos</p><p>•  Composição química benéfica para firmeza da parede celular</p><p>•  Matriz Organica com 15 dos 20 aminoácidos essenciais</p><p>•  Sem a presença de contaminantes orgânicos ou Metais pesados</p><p>•  Contem Calcio, Boro e Silício essenciais para a resistência da parede celular</p>"
+    image:"no-image.png"
+    language_id: 1
+  }){
+    id
+  }
+}

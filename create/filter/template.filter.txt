@@ -1,0 +1,8 @@
+import { Filter } from  './../../../<%= nivel %>core/filter';
+
+export class <%= upname %>Filter extends Filter {
+
+    constructor () {
+        super();
+    }
+}

@@ -1,0 +1,13 @@
+import { SequelizeRoute } from './../../../<%= nivel %>core/router';
+
+import { <%= upname %>Controller } from './../controller/<%= lowername %>.controller';
+
+export default class <%= upname %>Route extends SequelizeRoute {
+
+    protected controller: <%= upname %>Controller = new <%= upname %>Controller();
+
+    constructor( config ) {
+        super( config );
+    }
+}
+

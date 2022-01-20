@@ -1,0 +1,4 @@
+import { IGraphqlBase } from './../../../<%= nivel %>core/graphql/graphql';
+import { <%= upname %>Resolve } from './<%= name %>.resolve';
+
+export default class <%= upname %>Graphql extends <%= upname %>Resolve implements IGraphqlBase {}

@@ -1,0 +1,9 @@
+import { SequelizeController } from './../../../<%= nivel %>core/controller';
+
+import { <%= upname %>Service } from './../service/<%= lowername %>.service';
+
+export class <%= upname %>Controller extends SequelizeController {
+
+    protected service: <%= upname %>Service = new <%= upname %>Service;
+
+}

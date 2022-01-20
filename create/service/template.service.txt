@@ -1,0 +1,13 @@
+import { SequelizeService } from './../../../<%= nivel %>core/service';
+
+import { <%= upname %>Filter } from './../filter/<%= lowername %>.filter';
+import { <%= upname %>Repository } from './../repository/<%= lowername %>.repository';
+import <%= upname %>Entity from './../entity/<%= lowername %>.entity';
+
+export class <%= upname %>Service extends SequelizeService {
+
+    public filter: <%= upname %>Filter = new <%= upname %>Filter;
+    protected repository: <%= upname %>Repository = new <%= upname %>Repository;
+    protected entity = <%= upname %>Entity;
+
+}

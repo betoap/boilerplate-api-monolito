@@ -1,0 +1,20 @@
+import {
+    Table,
+    Column,
+    AllowNull,
+    DataType,
+    ForeignKey,
+    HasMany,
+    BelongsTo,
+    PrimaryKey
+} from 'sequelize-typescript';
+
+import { Entity } from './../../../<%= nivel %>core/entity';
+
+<%= entityImports %>
+@Table({
+    tableName: '<%= lowername %>s'
+})
+export default class <%= upname %>Entity extends Entity<<%= upname %>Entity> {
+    <%= entityFields %>
+}

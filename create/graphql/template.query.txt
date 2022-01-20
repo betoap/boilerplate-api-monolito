@@ -1,0 +1,113 @@
+import {
+    type,
+    input
+} from 'graphql-query-mutation/annotations';
+
+import { GraphqlBase } from './../../../<%= nivel %>core/graphql/graphql';
+
+export class <%= upname %>Query extends GraphqlBase {
+
+    @type
+    public mutationResponse<%= upname %>(): string {
+        return `
+            {
+                success: [<%= lowername %>]
+                error: [<%= lowername %>Error]
+            }
+        `;
+    }
+
+    @type
+    public <%= lowername %>Error(): string {
+        return `
+            {
+                id: ID<%= graphqlFields %>
+                createdAt: String
+                updatedAt: String
+                error: String
+            }
+        `;
+    }
+
+    @type
+    public <%= lowername %>(): string {
+        return `
+            {
+                id: ID<%= graphql %>
+                createdAt: String
+                updatedAt: String
+            }
+        `;
+    }
+
+    @input
+    public <%= lowername %>WhereInput(): string {
+        return `
+            {
+                id: ID
+                id_eq: ID
+                id_not: ID
+                id_in: [ID!]
+                id_not_in: [ID!]
+                id_lt: ID
+                id_lte: ID
+                id_gt: ID
+                id_gte: ID
+                id_contains: ID
+                id_not_contains: ID
+                id_starts_with: ID
+                id_not_starts_with: ID
+                id_ends_with: ID
+                id_not_ends_with: ID
+                <%= graphqlSearchs %>
+                createdAt: DateTime
+                createdAt_eq: DateTime
+                createdAt_not: DateTime
+                createdAt_in: [DateTime!]
+                createdAt_not_in: [DateTime!]
+                createdAt_lt: DateTime
+                createdAt_lte: DateTime
+                createdAt_gt: DateTime
+                createdAt_gte: DateTime
+
+                updatedAt: DateTime
+                updatedAt_eq: DateTime
+                updatedAt_not: DateTime
+                updatedAt_in: [DateTime!]
+                updatedAt_not_in: [DateTime!]
+                updatedAt_lt: DateTime
+                updatedAt_lte: DateTime
+                updatedAt_gt: DateTime
+                updatedAt_gte: DateTime
+
+                AND: [<%= lowername %>WhereInput!]
+                OR: [<%= lowername %>WhereInput!]
+            }
+        `;
+    }
+
+    @input
+     public <%= lowername %>CreateInput(): string {
+        return `
+            {<%= graphqlFields %>
+            }
+        `;
+    }
+
+    @input
+    public <%= lowername %>UpdateInput(): string {
+        return `
+            { <%= graphqlFieldsUpdate %>
+            }
+        `;
+    }
+
+    @input
+    public <%= lowername %>DeleteInput(): string {
+        return `
+            {
+                id: ID!
+            }
+        `;
+    }
+}

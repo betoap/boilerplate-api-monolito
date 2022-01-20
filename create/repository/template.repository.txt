@@ -1,0 +1,9 @@
+import { Repository } from   './../../../<%= nivel %>core/repository';
+
+export class <%= upname %>Repository extends Repository {
+
+    constructor() {
+        super();
+    }
+
+}

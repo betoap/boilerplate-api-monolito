@@ -1,0 +1,67 @@
+import {
+    query,
+    mutation,
+    resolveQuery,
+    resolveMutation,
+    resolveTrivial
+} from 'graphql-query-mutation/annotations';
+
+import { <%= upname %>Service } from '../service/<%= name %>.service';
+import { <%= upname %>Query } from './<%= name %>.query';
+
+<%= graphqlImports %>
+export class <%= upname %>Resolve extends <%= upname %>Query {
+
+    @query
+    queries(): string {
+        return `
+            get<%= upname %>s( where: <%= lowername %>WhereInput, order: [[String!]!], first: Int, offset: Int ): [ <%= lowername %> ]!
+            get<%= upname %>( id: ID! ): <%= lowername %>
+        `;
+    }
+
+    @mutation
+    mutation(): string {
+        return `
+            create<%= upname %>( input: <%= lowername %>CreateInput! ): <%= lowername %>
+            update<%= upname %>( id: ID!, input: <%= lowername %>UpdateInput! ): mutationResponse<%= upname %>
+            delete<%= upname %>( id: ID! ): mutationResponse<%= upname %>
+        `;
+    }
+
+    @resolveQuery
+    get<%= upname %>s ( parent, params, context, info ) {
+        const fields = super.getFields( info );
+        const obj = {
+            fields,
+            where: params.where || undefined,
+            limit: params.first || undefined,
+            offset: params.offset || undefined,
+            order: params.order || undefined
+        };
+        return new <%= upname %>Service().findAll( obj );
+    }
+
+    @resolveQuery
+    get<%= upname %> ( parent, params, context, info ) {
+        const fields = super.getFields( info );
+        return new <%= upname %>Service().findOne( { fields } );
+    }
+
+    @resolveMutation
+    create<%= upname %>( parent, params, context, info ) {
+        return new <%= upname %>Service().create(params.input);
+    }
+
+    @resolveMutation
+    update<%= upname %>( parent, params, context, info ) {
+        const id = { id: parseInt( params.id ) };
+        return new <%= upname %>Service().update(params.input, id);
+    }
+
+    @resolveMutation
+    delete<%= upname %>( parent, params, context, info ) {
+        const id = { id: parseInt( params.id ) };
+        return new <%= upname %>Service().delete(id);
+    }
+}
